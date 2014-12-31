@@ -1,0 +1,172 @@
+preston@mite:~/workspace/feed-workers$ clear ; time perl -W scripts/report.pl logs/*
+
+
+Top 10 URIs by total response bytes
+        75167938660: /images/wildfire-large.jpg
+        57330828770: /downloads/buildix-vmware-1.1.zip
+        42295851800: /images/wildfire.jpg
+        31083068340: /weblog/feed
+        20646895270: /weblog/feed/
+        13641151220: /images/IMG_2104.JPG
+        12965127530: /images/IMG_2296.JPG
+        12871477920: /images/IMG_2298.JPG
+        12241871040: /weblog/wp-rss2.php
+        9105902850: /images/A-10-MVC-006F.JPG
+
+
+Top 10 URIs returning 404 (Not Found)
+        731430: /weblog/feed/
+        698800: /weblog/wp-rss2.php
+        689180: /weblog/wp-content/themes/mine/style.css
+        515380: /robots.txt
+        440530: /images/wildfire.jpg
+        440480: /favicon.ico
+        351900: /weblog/wp-atom.php
+        319100: /weblog/feed
+        261080: /weblog/
+        259490: /weblog/2007/11/12/the-wide-finder-project/
+
+
+Top 10 URIs by hits on articles
+        731420: /weblog/feed/
+        698800: /weblog/wp-rss2.php
+        689180: /weblog/wp-content/themes/mine/style.css
+        351900: /weblog/wp-atom.php
+        319100: /weblog/feed
+        260910: /weblog/
+        258570: /weblog/2007/11/12/the-wide-finder-project/
+        247790: /weblog/wp-includes/images/smilies/icon_smile.gif
+        237130: /weblog/2004/10/18/wildfire/
+        196730: /weblog/2005/11/page/2/
+
+
+Top 10 client IPs by hits on articles
+        969450: 66.249.70.119
+        522010: 65.214.44.29
+        222400: 64.13.133.5
+        200300: 38.102.128.140
+        183250: 209.85.238.7
+        160370: 65.214.45.126
+        156880: 74.208.13.50
+        150980: 207.178.0.196
+        142960: 209.85.238.20
+        114810: 216.134.194.36
+
+
+Top 10 referrers by hits on articles
+        100730: http://programming.reddit.com/
+        22620: http://www.gerd-riesselmann.net/archives/2005/01/building-a-better-c-string-class
+        21410: http://www.google.com/
+        19020: http://google.com
+        16210: http://reddit.com/
+        16170: http://search.live.com/results.aspx?q=preston&mrt=en-us&FORM=LIVSOP
+        6890: http://www.google.com/reader/view/
+        6460: 
+        6390: http://search.live.com/results.aspx?q=september&mrt=en-us&FORM=LIVSOP
+        5100: http://programming.reddit.com/info/60gro/comments/
+
+
+real	6m56.867s
+user	5m35.905s
+sys	    0m12.425s
+
+preston@mite:~/workspace/feed-workers$  wc -c logs/*
+ 318278171 logs/log00
+ 318278171 logs/log01
+ 318278171 logs/log02
+ 318278171 logs/log03
+ 318278171 logs/log04
+ 318278171 logs/log05
+ 318278171 logs/log06
+ 318278171 logs/log07
+ 318278171 logs/log08
+ 318278171 logs/log09
+3182781710 total
+preston@mite:~/workspace/feed-workers$ 
+
+... or ~7.4MB/s
+
+With the "ongoing" dataset:
+
+42.38 user 
+ 1.54 system
+49.50 elapsed
+
+===================================================================================
+preston@mite:~/workspace/feed-workers$ time scripts/combine.pl logs/_reduce_all
+SAMPLE in: 183622 on: 402 sort: 4
+
+Top 10 URIs by total response bytes
+	919814823566: /ongoing/ongoing.atom
+	393012328499: /ongoing/potd.png
+	297110748615: /ongoing/ongoing.rss
+	95967470509: /ongoing/rsslogo.jpg
+	70619295535: /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+	46373582976: /talks/php.de.pdf
+	43559176904: /ongoing/When/200x/2006/05/16/J1d0.mov
+	42428609673: /ongoing/When/200x/2007/12/14/Shonen-Knife.mov
+	38415215289: /ongoing/
+	35603054785: /ongoing/moss60.jpg
+
+SAMPLE in: 130982 on: 381 sort: 4
+
+Top 10 URIs returning 404 (Not Found)
+	54271: /ongoing/ongoing.atom.xml
+	28030: /ongoing/ongoing.pie
+	27365: /ongoing/favicon.ico
+	26084: /ongoing/Browser-Market-Share.png
+	24631: /ongoing/When/200x/2004/04/27/-//W3C//DTD%20XHTML%201.1//EN
+	24078: /ongoing/Browsers-via-search.png
+	24004: /ongoing/Search-Engines.png
+	22637: /ongoing/ongoing.atom'
+	22619: //ongoing/ongoing.atom'
+	20587: /ongoing/Feeds.png
+
+SAMPLE in: 92874 on: 375 sort: 4
+
+Top 10 URIs by hits on articles
+	614255: /ongoing/When/200x/2005/05/01/Hammer_sickle_clean.png
+	561720: /ongoing/When/200x/2003/07/17/noIE.gif
+	321873: /ongoing/When/200x/2004/12/12/-tn/Browser-Market-Share.png
+	252828: /ongoing/When/200x/2004/02/18/Bump.png
+	242520: /ongoing/When/200x/2004/12/12/-tn/Browsers-via-search.png
+	241340: /ongoing/When/200x/2004/12/12/-tn/Search-Engines.png
+	219569: /ongoing/When/200x/2003/09/18/NXML
+	204202: /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+	168652: /ongoing/When/200x/2003/03/16/XML-Prog
+	137457: /ongoing/When/200x/2006/03/30/IMG_4613.png
+
+SAMPLE in: 5460844 on: 582 sort: 6
+
+Top 10 client IPs by hits on articles
+	366634: msnbot.msn.com
+	192147: cmbg-cache-2.server.ntli.net
+	161867: crawler14.googlebot.com
+	145264: crawl-66-249-72-173.googlebot.com
+	132805: crawl-66-249-72-172.googlebot.com
+	131051: cmbg-cache-1.server.ntli.net
+	100298: crawl-66-249-72-72.googlebot.com
+	95580: wfp2.almaden.ibm.com
+	90831: sv-crawlfw3.looksmart.com
+	84546: crawler10.googlebot.com
+
+SAMPLE in: 3009129 on: 468 sort: 5
+
+Top 10 referrers by hits on articles
+	993394: http://www.google.com/reader/view/
+	243013: http://planet.xmlhack.com/
+	195861: http://tbray.org/ongoing/
+	194726: http://planetsun.org/
+	181280: http://planetjava.org/
+	158613: http://slashdot.org/
+	129256: 
+	117228: http://www.chat.kg/
+	112469: http://planet.intertwingly.net/
+	89177: http://www.planetjava.org/
+
+
+real	3m0.665s
+user	2m24.513s
+sys	0m9.365s
+===================================================================================
+===================================================================================

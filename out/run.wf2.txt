@@ -1,0 +1,429 @@
+bannister@wfind01$ time scripts/report.pl logs/O.100k
+
+Top 10 URIs by total response bytes
+        896028666: /ongoing/ongoing.atom
+        810438183: /ongoing/When/200x/2007/06/17/IMGP5702.png
+        621907996: /ongoing/When/200x/2007/06/17/IMGP5705.png
+        475835845: /ongoing/When/200x/2007/06/17/IMGP5709.png
+        414063011: /ongoing/When/200x/2007/06/17/IMGP5714.png
+        174600751: /ongoing/When/200x/2007/06/15/IMGP5923.png
+        151049978: /ongoing/potd.png
+        123730129: /ongoing/When/200x/2007/06/16/IMGP5678.png
+        106642329: /ongoing/When/200x/2006/03/30/IMG_4613.png
+        90426651: /ongoing/When/200x/2007/06/15/IMGP5832.png
+
+
+Top 10 URIs returning 404 (Not Found)
+        109: /ongoing/IMGP5702.png
+        108: /ongoing/IMGP5705.png
+        105: /ongoing/IMGP5678.png
+        105: /ongoing/IMGP5923.png
+        104: /ongoing/IMGP5832.png
+        102: /ongoing/IMGP5709.png
+        102: /ongoing/IMGP5714.png
+        85: /ongoing/IMGP5655.png
+        85: /ongoing/IMGP5731.png
+        85: /ongoing/IMGP5786.png
+
+
+Top 10 URIs by hits on articles
+        3054: /ongoing/When/200x/2007/06/17/IMGP5702.png
+        2574: /ongoing/When/200x/2007/06/17/IMGP5705.png
+        2499: /ongoing/When/200x/2007/06/17/IMGP5709.png
+        2487: /ongoing/When/200x/2007/06/17/IMGP5714.png
+        963: /ongoing/When/200x/2007/06/16/IMGP5678.png
+        869: /ongoing/When/200x/2007/06/15/IMGP5832.png
+        826: /ongoing/When/200x/2006/03/30/IMG_4613.png
+        788: /ongoing/When/200x/2007/06/17/Web3S
+        776: /ongoing/When/200x/2007/06/15/IMGP5923.png
+        347: /ongoing/When/200x/2007/06/17/Tokyo-Playing
+
+
+Top 10 client IPs by hits on articles
+        1203: crm11.image.search.mud.yahoo.net
+        860: host81-155-117-179.range81-155.btcentralplus.com
+        475: c-68-38-176-166.hsd1.nj.comcast.net
+        346: crawl-66-249-66-14.googlebot.com
+        282: makbot2.araby.com
+        190: c0d.entireweb.com
+        185: 216.83.2.194
+        173: 85.238.226.35
+        172: 66-214-152-143.dhcp.mtpk.ca.charter.com
+        165: mail.pramati.com
+
+
+Top 10 referrers by hits on articles
+        3540: http://www.google.com/reader/view/
+        475: http://www.live.com/?wa=wsignin1.0
+        418: http://www.planetjava.org/
+        371: http://planetjava.org/
+        350: http://planet.xmlhack.com/
+        300: http://planet.intertwingly.net/
+        267: http://planetsun.org/
+        129: http://programming.reddit.com/
+        111: http://www.bloglines.com/myblogs_display?sub=33429075&site=2375595
+        80: http://www.bloglines.com/myblogs_display?all=1
+
+
+real    0m13.767s
+user    0m13.656s
+sys     0m0.108s
+
+===================================================================================
+bannister@wfind01$ time scripts/report.pl logs/O.100k &gt; _report
+
+real    0m13.864s
+user    0m13.753s
+sys     0m0.109s
+===================================================================================
+bannister@wfind01$ time scripts/reduce.pl logs/O.100k | scripts/combine.pl &gt; _reduce_combine
+
+real    0m14.584s
+user    0m14.552s
+sys     0m0.125s
+===================================================================================
+bannister@wfind01$ scripts/reduce.pl logs/O.100k | time scripts/combine.pl &gt; _reduce_combine
+
+real       14.5
+user        1.3
+sys         0.0
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 1 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x1_reduce_combine
+Tue Jun  3 01:28:50 2008
+Scanning: logs/O.100k
+
+real    0m13.241s
+user    0m12.547s
+sys     0m0.402s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 4 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x4_reduce_combine
+Tue Jun  3 01:30:16 2008
+Scanning: logs/O.100k
+
+real    0m5.046s
+user    0m13.063s
+sys     0m0.408s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 10 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x10_reduce_combine
+Tue Jun  3 01:31:08 2008
+Scanning: logs/O.100k
+
+real    0m3.669s
+user    0m14.378s
+sys     0m0.535s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 20 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x20_reduce_combine
+Tue Jun  3 01:31:46 2008
+Scanning: logs/O.100k
+
+real    0m3.322s
+user    0m17.300s
+sys     0m0.747s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 30 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x30_reduce_combine
+Tue Jun  3 01:32:16 2008
+Scanning: logs/O.100k
+
+real    0m3.086s
+user    0m20.378s
+sys     0m0.997s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 40 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x40_reduce_combine
+Tue Jun  3 01:32:47 2008
+Scanning: logs/O.100k
+
+real    0m3.090s
+user    0m21.265s
+sys     0m1.250s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 50 -r `which perl` -s scripts/reduce.pl logs/O.100k | 
+    scripts/combine.pl &gt; _feed_x50_reduce_combine
+Tue Jun  3 01:33:27 2008
+Scanning: logs/O.100k
+
+real    0m3.140s
+user    0m21.528s
+sys     0m1.459s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 30 -r `which perl` -s scripts/reduce.pl logs/O.1m | 
+    scripts/combine.pl &gt; _x30_1m            
+Tue Jun  3 01:34:43 2008
+Scanning: logs/O.1m
+
+real    0m21.637s
+user    3m7.545s
+sys     0m4.723s
+
+bannister@wfind01$ time ./feed-workers -n 30 -r `which perl` -s scripts/reduce.pl logs/O.1m | 
+    scripts/combine.pl &gt; _x30_1m
+Tue Jun  3 01:35:10 2008
+Scanning: logs/O.1m
+
+real    0m21.246s
+user    3m5.751s
+sys     0m4.180s
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 30 -r `which perl` -s scripts/reduce.pl logs/O.all &gt; _reduce_all
+Tue Jun  3 21:34:20 2008
+Scanning: logs/O.all
+Done with: logs/O.all
+Worker #26716 ended with status: 0
+Worker #26715 ended with status: 0
+Worker #26714 ended with status: 0
+Worker #26713 ended with status: 0
+Worker #26712 ended with status: 0
+Worker #26711 ended with status: 0
+Worker #26710 ended with status: 0
+Worker #26709 ended with status: 0
+Worker #26708 ended with status: 0
+Worker #26707 ended with status: 0
+Worker #26706 ended with status: 0
+Worker #26705 ended with status: 0
+Worker #26704 ended with status: 0
+Worker #26703 ended with status: 0
+Worker #26702 ended with status: 0
+Worker #26701 ended with status: 0
+Worker #26700 ended with status: 0
+Worker #26699 ended with status: 0
+Worker #26698 ended with status: 0
+Worker #26697 ended with status: 0
+Worker #26696 ended with status: 0
+Worker #26695 ended with status: 0
+Worker #26694 ended with status: 0
+Worker #26693 ended with status: 0
+Worker #26692 ended with status: 0
+Worker #26691 ended with status: 0
+Worker #26690 ended with status: 0
+Worker #26689 ended with status: 0
+Worker #26688 ended with status: 0
+Worker #26687 ended with status: 0
+Tue Jun  3 22:02:00 2008
+Elapsed (ms): 1660139, total (MB): 43178
+Scanned 26 MB/s
+
+real    27m40.180s
+user    597m45.533s
+sys     12m1.064s
+bannister@wfind01$
+===================================================================================
+bannister@wfind01$ time scripts/combine.pl tmp/_reduce_only
+H 614255 /ongoing/When/200x/2005/05/01/Hammer_sickle_clean.png
+H 561720 /ongoing/When/200x/2003/07/17/noIE.gif
+H 321873 /ongoing/When/200x/2004/12/12/-tn/Browser-Market-Share.png
+H 252828 /ongoing/When/200x/2004/02/18/Bump.png
+H 242520 /ongoing/When/200x/2004/12/12/-tn/Browsers-via-search.png
+H 241340 /ongoing/When/200x/2004/12/12/-tn/Search-Engines.png
+H 219569 /ongoing/When/200x/2003/09/18/NXML
+H 204202 /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+H 168652 /ongoing/When/200x/2003/03/16/XML-Prog
+H 137457 /ongoing/When/200x/2006/03/30/IMG_4613.png
+N 54271 /ongoing/ongoing.atom.xml
+N 28030 /ongoing/ongoing.pie
+N 27365 /ongoing/favicon.ico
+N 26084 /ongoing/Browser-Market-Share.png
+N 24631 /ongoing/When/200x/2004/04/27/-//W3C//DTD%20XHTML%201.1//EN
+N 24078 /ongoing/Browsers-via-search.png
+N 24004 /ongoing/Search-Engines.png
+N 22637 /ongoing/ongoing.atom'
+N 22619 //ongoing/ongoing.atom'
+N 20587 /ongoing/Feeds.png
+R 993394 http://www.google.com/reader/view/
+R 243013 http://planet.xmlhack.com/
+R 195861 http://tbray.org/ongoing/
+R 194726 http://planetsun.org/
+R 181280 http://planetjava.org/
+R 158613 http://slashdot.org/
+R 129256
+R 117228 http://www.chat.kg/
+R 112469 http://planet.intertwingly.net/
+R 89177 http://www.planetjava.org/
+I 366634 msnbot.msn.com
+I 192147 cmbg-cache-2.server.ntli.net
+I 161867 crawler14.googlebot.com
+I 145264 crawl-66-249-72-173.googlebot.com
+I 132805 crawl-66-249-72-172.googlebot.com
+I 131051 cmbg-cache-1.server.ntli.net
+I 100298 crawl-66-249-72-72.googlebot.com
+I 95580 wfp2.almaden.ibm.com
+I 90831 sv-crawlfw3.looksmart.com
+I 84546 crawler10.googlebot.com
+B 919814823566 /ongoing/ongoing.atom
+B 393012328499 /ongoing/potd.png
+B 297110748615 /ongoing/ongoing.rss
+B 95967470509 /ongoing/rsslogo.jpg
+B 70619295535 /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+B 46373582976 /talks/php.de.pdf
+B 43559176904 /ongoing/When/200x/2006/05/16/J1d0.mov
+B 42428609673 /ongoing/When/200x/2007/12/14/Shonen-Knife.mov
+B 38415215289 /ongoing/
+B 35603054785 /ongoing/moss60.jpg
+
+real    79m59.721s
+user    82m9.882s
+sys     0m42.510s
+bannister@wfind01$
+===================================================================================
+bannister@wfind01$ time scripts/combine.pl tmp/_reduce_only
+Cannot sort results!
+H 614255 /ongoing/When/200x/2005/05/01/Hammer_sickle_clean.png
+H 561720 /ongoing/When/200x/2003/07/17/noIE.gif
+H 321873 /ongoing/When/200x/2004/12/12/-tn/Browser-Market-Share.png
+H 252828 /ongoing/When/200x/2004/02/18/Bump.png
+H 242520 /ongoing/When/200x/2004/12/12/-tn/Browsers-via-search.png
+H 241340 /ongoing/When/200x/2004/12/12/-tn/Search-Engines.png
+H 219569 /ongoing/When/200x/2003/09/18/NXML
+H 204202 /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+H 168652 /ongoing/When/200x/2003/03/16/XML-Prog
+H 137457 /ongoing/When/200x/2006/03/30/IMG_4613.png
+N 54271 /ongoing/ongoing.atom.xml
+N 28030 /ongoing/ongoing.pie
+N 27365 /ongoing/favicon.ico
+N 26084 /ongoing/Browser-Market-Share.png
+N 24631 /ongoing/When/200x/2004/04/27/-//W3C//DTD%20XHTML%201.1//EN
+N 24078 /ongoing/Browsers-via-search.png
+N 24004 /ongoing/Search-Engines.png
+N 22637 /ongoing/ongoing.atom'
+N 22619 //ongoing/ongoing.atom'
+N 20587 /ongoing/Feeds.png
+B 919814823566 /ongoing/ongoing.atom
+B 393012328499 /ongoing/potd.png
+B 297110748615 /ongoing/ongoing.rss
+B 95967470509 /ongoing/rsslogo.jpg
+B 70619295535 /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+B 46373582976 /talks/php.de.pdf
+B 43559176904 /ongoing/When/200x/2006/05/16/J1d0.mov
+B 42428609673 /ongoing/When/200x/2007/12/14/Shonen-Knife.mov
+B 38415215289 /ongoing/
+B 35603054785 /ongoing/moss60.jpg
+
+real    10m29.393s
+user    12m10.821s
+sys     0m53.360s
+bannister@wfind01$
+===================================================================================
+bannister@wfind01$ time scripts/combine.pl tmp/_reduce_only
+
+Top 10 URIs by total response bytes
+        919814823566: /ongoing/ongoing.atom
+        393012328499: /ongoing/potd.png
+        297110748615: /ongoing/ongoing.rss
+        95967470509: /ongoing/rsslogo.jpg
+        70619295535: /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+        46373582976: /talks/php.de.pdf
+        43559176904: /ongoing/When/200x/2006/05/16/J1d0.mov
+        42428609673: /ongoing/When/200x/2007/12/14/Shonen-Knife.mov
+        38415215289: /ongoing/
+        35603054785: /ongoing/moss60.jpg
+
+
+Top 10 URIs returning 404 (Not Found)
+        54271: /ongoing/ongoing.atom.xml
+        28030: /ongoing/ongoing.pie
+        27365: /ongoing/favicon.ico
+        26084: /ongoing/Browser-Market-Share.png
+        24631: /ongoing/When/200x/2004/04/27/-//W3C//DTD%20XHTML%201.1//EN
+        24078: /ongoing/Browsers-via-search.png
+        24004: /ongoing/Search-Engines.png
+        22637: /ongoing/ongoing.atom'
+        22619: //ongoing/ongoing.atom'
+        20587: /ongoing/Feeds.png
+
+
+Top 10 URIs by hits on articles
+        614255: /ongoing/When/200x/2005/05/01/Hammer_sickle_clean.png
+        561720: /ongoing/When/200x/2003/07/17/noIE.gif
+        321873: /ongoing/When/200x/2004/12/12/-tn/Browser-Market-Share.png
+        252828: /ongoing/When/200x/2004/02/18/Bump.png
+        242520: /ongoing/When/200x/2004/12/12/-tn/Browsers-via-search.png
+        241340: /ongoing/When/200x/2004/12/12/-tn/Search-Engines.png
+        219569: /ongoing/When/200x/2003/09/18/NXML
+        204202: /ongoing/When/200x/2004/08/30/-big/IMGP0851.jpg
+        168652: /ongoing/When/200x/2003/03/16/XML-Prog
+        137457: /ongoing/When/200x/2006/03/30/IMG_4613.png
+
+
+Top 10 client IPs by hits on articles
+        366634: msnbot.msn.com
+        192147: cmbg-cache-2.server.ntli.net
+        161867: crawler14.googlebot.com
+        145264: crawl-66-249-72-173.googlebot.com
+        132805: crawl-66-249-72-172.googlebot.com
+        131051: cmbg-cache-1.server.ntli.net
+        100298: crawl-66-249-72-72.googlebot.com
+        95580: wfp2.almaden.ibm.com
+        90831: sv-crawlfw3.looksmart.com
+        84546: crawler10.googlebot.com
+
+
+Top 10 referrers by hits on articles
+        993394: http://www.google.com/reader/view/
+        243013: http://planet.xmlhack.com/
+        195861: http://tbray.org/ongoing/
+        194726: http://planetsun.org/
+        181280: http://planetjava.org/
+        158613: http://slashdot.org/
+        129256: 
+        117228: http://www.chat.kg/
+        112469: http://planet.intertwingly.net/
+        89177: http://www.planetjava.org/
+
+
+real    10m50.437s
+user    10m32.404s
+sys     0m17.107s
+
+(Disk is in use by a large(?) gcc build - so these times may be long.)
+===================================================================================
+bannister@wfind01$ time ./feed-workers -n 30 -r `which perl` -s scripts/reduce.pl logs/O.all | time scripts/combine.pl > _x30_reduce_combine
+Fri Jun 13 04:03:32 2008
+Scanning: logs/O.all
+Done with: logs/O.all
+Worker #21875 ended with status: 0
+Worker #21874 ended with status: 0
+Worker #21873 ended with status: 0
+Worker #21872 ended with status: 0
+Worker #21871 ended with status: 0
+Worker #21870 ended with status: 0
+Worker #21869 ended with status: 0
+Worker #21868 ended with status: 0
+Worker #21867 ended with status: 0
+Worker #21866 ended with status: 0
+Worker #21865 ended with status: 0
+Worker #21864 ended with status: 0
+Worker #21863 ended with status: 0
+Worker #21862 ended with status: 0
+Worker #21861 ended with status: 0
+Worker #21860 ended with status: 0
+Worker #21859 ended with status: 0
+Worker #21858 ended with status: 0
+Worker #21857 ended with status: 0
+Worker #21856 ended with status: 0
+Worker #21855 ended with status: 0
+Worker #21854 ended with status: 0
+Worker #21853 ended with status: 0
+Worker #21852 ended with status: 0
+Worker #21851 ended with status: 0
+Worker #21850 ended with status: 0
+Worker #21849 ended with status: 0
+Worker #21848 ended with status: 0
+Worker #21847 ended with status: 0
+Worker #21846 ended with status: 0
+Fri Jun 13 04:36:03 2008
+Elapsed (ms): 1950971, total (MB): 43178
+Scanned 22 MB/s
+
+real    34:06.9
+user    10:32.7
+sys        11.1
+
+real    34m6.930s
+user    609m12.577s
+sys     12m33.298s
+===================================================================================
+===================================================================================
