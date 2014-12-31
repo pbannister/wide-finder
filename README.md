@@ -9,7 +9,7 @@ Most of the **Wide Finder** submissions were complex and extremely specific to t
 
 I took a [different approach](http://bannister.us/weblog/2008/wrapping-up-wide-finder-2/). I looked for something simple that could easily be re-used.
 
-The compiled **feed-workers** command line tool reads sequential file(s) in the most efficient (fastest) manner, and throws chunks of lines in round-robin fashion down pipes to the standard input of a fixed number of readers. The readers can be anything (that is presumably more CPU-bound than IO-limited). My offered examples are Perl scripts.
+The compiled **feed-workers** command line tool reads sequential file(s) in the most efficient (fastest) manner, and throws chunks of lines in round-robin fashion down pipes to the standard input of a fixed number of workers. The workers can be anything (that is presumably more CPU-bound than IO-limited). My offered examples are Perl scripts.
 
 Perl regular expressions are wonderfully flexible, but not especially fast. If you need to do adhoc and/or complex processing on log files (or the like), Perl is a suitable tool. (Likely the same argument applies to Python and Ruby.)
 
