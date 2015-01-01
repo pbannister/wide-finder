@@ -27,7 +27,7 @@ while (<>) {
 	$$vBytes{$uri} += $size unless "-" eq $size;
 	$$v404{$uri}++ if "404" eq $status;
 
-	next unless m{"GET /weblog};
+	next unless m{"GET /weblog/2};
 #	next unless m{"GET /ongoing/When/};
 
 	$$vHits{$uri}++;

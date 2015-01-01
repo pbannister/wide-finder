@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+my $LIMIT = 100;
+
 my $vBytes     = {};
 my $v404       = {};
 my $vHits      = {};
@@ -45,14 +47,15 @@ sub sampleTop {
 
 sub reportByN {
 	  my ( $title, $kv ) = @_;
-	  my @top = sampleTop( 10, $kv );
+      $title = "Top $LIMIT " . $title;
+	  my @top = sampleTop( $LIMIT, $kv );
 	  my $got = join "\n\t", map { $$_[0] . ": " . $$_[1] } @top; 
 	  print "\n$title\n\t$got\n\n";
 }
 
-reportByN( "Top 10 URIs by total response bytes",   $vBytes );
-reportByN( "Top 10 URIs returning 404 (Not Found)", $v404 );
-reportByN( "Top 10 URIs by hits on articles",       $vHits );
-reportByN( "Top 10 client IPs by hits on articles", $vClients );
-reportByN( "Top 10 referrers by hits on articles",  $vReferrers );
+reportByN( "URIs by total response bytes",   $vBytes );
+reportByN( "URIs returning 404 (Not Found)", $v404 );
+reportByN( "URIs by hits on articles",       $vHits );
+reportByN( "client IPs by hits on articles", $vClients );
+reportByN( "referrers by hits on articles",  $vReferrers );
 
