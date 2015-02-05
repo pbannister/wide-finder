@@ -1,5 +1,9 @@
 
+Debug
+Release
+*.d
 .svn
+feed-workers
 
 # Compiled Object files
 *.slo
